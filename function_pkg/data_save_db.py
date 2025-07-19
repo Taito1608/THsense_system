@@ -20,7 +20,8 @@ def put_data_record( temp,humid):
        host=db_ip_addr,
        user=os.getenv("DB_USER"),
        password=os.getenv("DB_PASSWORD"),
-       db=os.getenv("DB_NAME"), charset="utf8"
+       db=os.getenv("DB_NAME"),
+       charset="utf8"
        )
     with connection.cursor() as cursor:
       sql = "INSERT INTO "+db_table+" (id, dt, temp, humid) VALUES(%s, %s, %s, %s)"
