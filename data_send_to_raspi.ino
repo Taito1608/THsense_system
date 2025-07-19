@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <U8x8lib.h>
 
-WAITING_TIME = 60000; // 送信間隔の設定（ms）
+int WAITING_TIME = 60000; // 送信間隔の設定（ms）
 
 int sensorpin = A6; // センサーのピン番号
 int sensorValue = 0;
@@ -16,7 +16,7 @@ DHT dht(DHTTYPE);  // DHTセンサーのインスタンスを作成
 
 U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(/* reset=*/ U8X8_PIN_NONE);
 int button_state = 0;   // ボタンの状態
-int sendState = 0;    // データ送信状態
+int sendState = 1;    // データ送信状態
 
 void setup() {
     pinMode(ledPin, OUTPUT);
@@ -78,10 +78,9 @@ void loop() {
     u8x8.refreshDisplay();
 
   // ボタンの状態を読み取る
-  // ボタンが押されたらデータ送信状態を切り替える
-  // ボタンが押されたらLEDを点灯
     button_state = digitalRead(buttonPin);
 
+  // ボタンが押されたらデータ送信状態を切り替える
   if (button_state == HIGH) {
     if(sendState == 0 ) {
       sendState = 1;
