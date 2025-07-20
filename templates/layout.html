@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>THsystem</title>
+    <div class="header"></div>
+        <h1 class="titlename">TH_system</h1>
+        <p class="subtitlename">温度・湿度センサーを用いた危険通知システム</p>
+    </div>
 </head>
 <body>
-    <h1>温度・湿度管理システム</h1>
     {%- block content %}{% endblock %} 
 </body>
 </html>

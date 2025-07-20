@@ -1,5 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>CSVデータ表示</h2>
-    <p>ここにCSVデータを表示します。</p>
+<div class="container">
+    <div class="title">
+    
+    </div>
+
+    <div class="temperature-box">
+        <p class="label">現在の温度</p>
+        <p class="datetime">{{ last_data[0][1]}} 時点</p>
+        <p class="temperature">{{ last_data[0][2]}} ℃</p>
+    </div>
+
+    <div class="button-area">
+        <a href="/hour" class="btn">グラフで確認する</a>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,65 @@
+/* static/style.css */
+/* index.html Styles */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #000;
+}
+
+.container {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.header {
+    top: 20px;
+    left: 30px;
+    text-align: left;
+}
+
+.titlename {
+    font-size: 24px;
+    margin: 6px 0 0 12px; /* ← 上に6px、左に12pxの余白 */
+    font-weight: bold;
+}
+
+.subtitlename {
+    font-size: 13px;
+    margin: 6px 0 0 18px; /* ← 上に6px、左に12pxの余白 */
+    color: #444;
+}
+
+.label {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.datetime {
+    font-size: 18px;
+    color: #444;
+}
+
+.temperature {
+    font-size: 80px;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 40px;
+}
+
+.button-area .btn {
+    display: inline-block;
+    padding: 14px 24px;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.button-area .btn:hover {
+    background-color: #357ABD;
+}
