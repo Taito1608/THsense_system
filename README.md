@@ -1,4 +1,4 @@
-#　THsense_system
+# THsense_system
 温度・湿度センサーを用いた危険通知システム
 
 ## 使用技術
