@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="chart-title">温度と湿度の変化グラフ（過去データ）</h2>
+
+    <div class="chart-container">
+        <canvas id="tempHumChart"></canvas>
+    </div>
+
+    <div class="button-area">
+        <a href="/" class="btn">ホームに戻る</a>
+    </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let graphData = {{ graph_data | tojson }};
+
+    // 表示順を左右反転（最新のデータが右端に来るように）
+    graphData = graphData.reverse();
+
+    // データを抽出
+    const labels = graphData.map(item => item[0]); 
+    const tempData = graphData.map(item => item[1]);
+    const humData = graphData.map(item => item[2]);
+
+    // グラフの描画
+    const ctx = document.getElementById('tempHumChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: '温度 (℃)',
+                    data: tempData,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    yAxisID: 'y-temp'
+                },
+                {
+                    label: '湿度 (%)',
+                    data: humData,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    yAxisID: 'y-hum'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                'y-temp': {
+                    type: 'linear',
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: '温度 (℃)'
+                    }
+                },
+                'y-hum': {
+                    type: 'linear',
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: '湿度 (%)'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

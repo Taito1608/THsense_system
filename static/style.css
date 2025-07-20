@@ -63,3 +63,10 @@ body {
 .button-area .btn:hover {
     background-color: #357ABD;
 }
+
+/* hour.html Styles */
+.chart-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 60px;
+}
