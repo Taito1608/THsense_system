@@ -41,7 +41,7 @@ def get_hour_data():
             charset="utf8"
         ) # データベースの接続設定
         with connection.cursor() as cursor:
-            sql = "SELECT * FROM " + db_table + " ORDER BY dt DESC LIMIT 60"
+            sql = "SELECT * FROM " + db_table + " ORDER BY dt LIMIT 60"
             cursor.execute(sql)
             hour_data = cursor.fetchall()
             return hour_data
