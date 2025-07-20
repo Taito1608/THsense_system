@@ -16,7 +16,6 @@ def read_usb():
   txt1 = in_txt.split(b':')
   txt2 = txt1[0].split(b'Temperature=')
   txt3 = txt1[1].split(b'Humidity=')
-  txt4 = txt3[1].split(b'\r')
 
   # 文字列から数値に変換
   temp = float( txt2[1] )
