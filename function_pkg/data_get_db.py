@@ -1,13 +1,38 @@
-import pymysql.cursors
+from db.database import SessionLocal
+from db.models import TH_tbl
+import pymysql
 from dotenv import load_dotenv
 import os
 
 # .envファイルから環境変数を読み込む
-load_dotenv()
+# load_dotenv()
 
-db_ip_addr= os.getenv("REMOTE_DB_IP_ADDRESS")   # データベースのIPアドレスを指定
-db_table  = os.getenv("DB_TABLE")               # テーブル名を取得
+# db_ip_addr= os.getenv("REMOTE_DB_IP_ADDRESS")   # データベースのIPアドレスを指定
+# db_table  = os.getenv("DB_TABLE")               # テーブル名を取得
 
+def get_now_data():
+    session = SessionLocal()
+    try:
+        last_data = session.query(TH_tbl).order_by(TH_tbl.dt.desc()).limit(1).all()
+        # オブジェクト → タプルへ変換
+        return [ (d.id, d.dt, d.temp, d.humid) for d in last_data ]
+    except Exception as e:
+        print(f"DB Access Error: {e}")
+    finally:
+        session.close()
+
+def get_hour_data():
+    session = SessionLocal()
+    try:
+        hour_data = session.query(TH_tbl).order_by(TH_tbl.dt.desc()).limit(60).all()
+        # オブジェクト → タプルへ変換
+        return [ (d.id, d.dt, d.temp, d.humid) for d in hour_data ]
+    except Exception as e:
+        print(f"DB Access Error: {e}")
+    finally:
+        session.close()
+
+"""(クエリを直接実行する場合のコード)
 # データベースからデータを取得して表示する関数
 def get_now_data():
     try:
@@ -50,6 +75,7 @@ def get_hour_data():
     finally:
         if 'connection' in locals():  # connectionが存在する場合のみclose
           connection.close()
+"""
 
 if __name__ == '__main__':
     # 最新のデータを取得して表示
