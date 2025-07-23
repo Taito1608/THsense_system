@@ -1,15 +1,36 @@
 import datetime
 import socket
 import pymysql
+from sqlalchemy.orm import Session
+from db.database import SessionLocal  # セッション作成関数（環境に応じて変更してください）
+from db.models import TH_tbl
 from dotenv import load_dotenv
 import os
 
 # .envファイルの読み込み
-load_dotenv()
+# load_dotenv()
 
-db_ip_addr=os.getenv("DB_IP_ADDRESS") # データベースのIPアドレスを指定
+# db_ip_addr=os.getenv("DB_IP_ADDRESS") # データベースのIPアドレスを指定
 
-# データベースに温度と湿度のデータを保存する関数
+def put_data_record(temp: float, humid: float):
+  id = socket.gethostname()
+  dt = datetime.datetime.now()
+
+  session: Session = SessionLocal()
+  try:
+      new_record = TH_tbl(id=id, dt=dt, temp=temp, humid=humid)
+      session.add(new_record)
+      session.commit()
+      print(f"ID={id}  DateTime={dt}  Temp={temp:.2f}  Humidity={humid:.2f}")
+      print("    Data committed.")
+  except Exception as e:
+      session.rollback()
+      print("DB Access Error!", e)
+  finally:
+      session.close()
+
+"""
+# データベースに温度と湿度のデータを保存する関数(クエリを直接実行)
 def put_data_record( temp,humid):
   id = socket.gethostname()         # ホスト名をIDとして使用
   dt = datetime.datetime.today()    # 現在の日時を取得
@@ -33,6 +54,7 @@ def put_data_record( temp,humid):
   finally:
       if 'connection' in locals():  # connectionが存在する場合のみclose
           connection.close()
+"""
 
 if __name__ == '__main__':
     try:
